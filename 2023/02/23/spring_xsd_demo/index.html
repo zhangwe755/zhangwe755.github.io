@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>spring自定义xml配置标签 | 张威的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在开发中经常用到xml配置，而在配置文件中可以使用各种各样的xml节点名称。其中典型的就是dubbo源代码中定义了各种标签。在dubbo官网上还可以看到xml配置的消费者bean对象,服务提供者等，在这些配置中会指定接口类名，指定id，group, version等等信息。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring自定义xml配置标签">
+<meta property="og:url" content="https://zhangweiblog.cn/2023/02/23/spring_xsd_demo/index.html">
+<meta property="og:site_name" content="张威的博客">
+<meta property="og:description" content="在开发中经常用到xml配置，而在配置文件中可以使用各种各样的xml节点名称。其中典型的就是dubbo源代码中定义了各种标签。在dubbo官网上还可以看到xml配置的消费者bean对象,服务提供者等，在这些配置中会指定接口类名，指定id，group, version等等信息。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-23T12:14:09.000Z">
+<meta property="article:modified_time" content="2023-04-28T05:42:06.914Z">
+<meta property="article:author" content="zhangwei">
+<meta property="article:tag" content="spring">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/sitemap.xml" title="张威的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">张威的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/2023/01/23/aboutme/">关于我</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/sitemap.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://zhangweiblog.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-spring_xsd_demo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/02/23/spring_xsd_demo/" class="article-date">
+  <time datetime="2023-02-23T12:14:09.000Z" itemprop="datePublished">2023-02-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      spring自定义xml配置标签
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <html><head></head><body><p>在开发中经常用到xml配置，而在配置文件中可以使用各种各样的xml节点名称。其中典型的就是dubbo源代码中定义了各种标签。在dubbo官网上还可以看到xml配置的消费者bean对象,服务提供者等，在这些配置中会指定接口类名，指定id，group, version等等信息。</p>
+<a id="more"></a>
+
+<h2 id="自定义标签需要做哪些动作呢"><a href="#自定义标签需要做哪些动作呢" class="headerlink" title="自定义标签需要做哪些动作呢"></a>自定义标签需要做哪些动作呢</h2><h4 id="1、自定标签限制文件-资源文件resources-x2F-xiaoming-1-0-xsd"><a href="#1、自定标签限制文件-资源文件resources-x2F-xiaoming-1-0-xsd" class="headerlink" title="1、自定标签限制文件, 资源文件resources/xiaoming-1.0.xsd"></a>1、自定标签限制文件, 资源文件resources/xiaoming-1.0.xsd</h4><ul>
+<li>这个限制文件指定了标签的结构<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">xsd:schema</span> <span class="attr">xmlns</span>=<span class="string">"http://zhangweiblog.cn/schema/xiaoming"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">xmlns:xsd</span>=<span class="string">"http://www.w3.org/2001/XMLSchema"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">targetNamespace</span>=<span class="string">"http://zhangweiblog.cn/schema/xiaoming"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">elementFormDefault</span>=<span class="string">"qualified"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 定义student顶层标签，其类型是复杂类型Student --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:element</span> <span class="attr">name</span>=<span class="string">"student"</span> <span class="attr">type</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:annotation</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:documentation</span>&gt;</span>&lt;![CDATA[ The student info ]]&gt;<span class="tag">&lt;/<span class="name">xsd:documentation</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:annotation</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:element</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 定义Student类型可以有哪些属性 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">xsd:complexType</span> <span class="attr">name</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"id"</span> <span class="attr">type</span>=<span class="string">"xsd:string"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:annotation</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">xsd:documentation</span>&gt;</span>&lt;![CDATA[ The unique identifier for a bean. ]]&gt;<span class="tag">&lt;/<span class="name">xsd:documentation</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">xsd:annotation</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:attribute</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">xsd:attribute</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">type</span>=<span class="string">"xsd:string"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">xsd:annotation</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">xsd:documentation</span>&gt;</span>&lt;![CDATA[ The name of the bean. ]]&gt;<span class="tag">&lt;/<span class="name">xsd:documentation</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">xsd:annotation</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">xsd:attribute</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">xsd:complexType</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xsd:schema</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h4 id="2、在其它配置文件中指定命名空间"><a href="#2、在其它配置文件中指定命名空间" class="headerlink" title="2、在其它配置文件中指定命名空间"></a>2、在其它配置文件中指定命名空间</h4><ul>
+<li>注意标签xiaoming:这个写方式是xmlns:xiaoming=”<a href="http://zhangweiblog.cn/schema/xiaoming">http://zhangweiblog.cn/schema/xiaoming</a>“ 决定的,这里的xmlns:xiaoming改成xmlns:xiao下面就需要改成对应xiao, 如果你的ide是idea，那么你可以看到明显的报错信息<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xiaoming</span>=<span class="string">"http://zhangweiblog.cn/schema/xiaoming"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">           http://zhangweiblog.cn/schema/xiaoming</span></span></span><br><span class="line"><span class="tag"><span class="string">           http://zhangweiblog.cn/schema/xiaoming/xiaoming-1.0.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">xiaoming:student</span> <span class="attr">id</span>=<span class="string">"xiaoming"</span> <span class="attr">name</span>=<span class="string">"小明"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h4 id="3、标签xml解析类"><a href="#3、标签xml解析类" class="headerlink" title="3、标签xml解析类"></a>3、标签xml解析类</h4><ul>
+<li>这个解析类决定了，当解析到xiaoming:student这个标签时候，代码需要做的动作<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zw.dubbo.xsd;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.zw.dubbo.factorybean.Student;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.MutablePropertyValues;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.config.BeanDefinition;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.support.RootBeanDefinition;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.xml.BeanDefinitionParser;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.xml.ParserContext;</span><br><span class="line"><span class="keyword">import</span> org.w3c.dom.Element;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XiaomingDefinitionParser</span> <span class="keyword">implements</span> <span class="title">BeanDefinitionParser</span> </span>{</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> BeanDefinition <span class="title">parse</span><span class="params">(Element element, ParserContext parserContext)</span> </span>{</span><br><span class="line">        System.out.println(<span class="string">"开始解析了"</span>);</span><br><span class="line">        RootBeanDefinition bd = <span class="keyword">new</span> RootBeanDefinition();</span><br><span class="line">        <span class="comment">// 不延迟加载</span></span><br><span class="line">        bd.setLazyInit(<span class="keyword">false</span>);</span><br><span class="line">        String id = element.getAttribute(<span class="string">"id"</span>);</span><br><span class="line">        String name = element.getAttribute(<span class="string">"name"</span>);</span><br><span class="line">        bd.setBeanClass(Student<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        MutablePropertyValues propertyValues = bd.getPropertyValues();</span><br><span class="line">        propertyValues.addPropertyValue(<span class="string">"name"</span>, name);</span><br><span class="line">        <span class="comment">// 注入一个bean对象</span></span><br><span class="line">        parserContext.getRegistry().registerBeanDefinition(<span class="string">"student"</span>, bd);</span><br><span class="line">        <span class="keyword">return</span> bd;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h4 id="4、编写命名空间处理类"><a href="#4、编写命名空间处理类" class="headerlink" title="4、编写命名空间处理类"></a>4、编写命名空间处理类</h4><ul>
+<li>这里是这个标签的解析的源头，决定了哪个标签使用哪个解析类<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zw.dubbo.xsd;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.xml.NamespaceHandlerSupport;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XiaomingNamespaceHandler</span> <span class="keyword">extends</span> <span class="title">NamespaceHandlerSupport</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.registerBeanDefinitionParser(<span class="string">"student"</span>,</span><br><span class="line">                <span class="keyword">new</span> XiaomingDefinitionParser());</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h4 id="5、resources-x2F-META-INF-x2F-spring-schemas中添加配置"><a href="#5、resources-x2F-META-INF-x2F-spring-schemas中添加配置" class="headerlink" title="5、resources/META-INF/spring.schemas中添加配置"></a>5、resources/META-INF/spring.schemas中添加配置</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http\://zhangweiblog.cn/schema/xiaoming/xiaoming-1.0.xsd=./xiaoming-1.0.xsd</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="6、resources-x2F-META-INF-x2F-spring-handlers中指定命名空间处理类"><a href="#6、resources-x2F-META-INF-x2F-spring-handlers中指定命名空间处理类" class="headerlink" title="6、resources/META-INF/spring.handlers中指定命名空间处理类"></a>6、resources/META-INF/spring.handlers中指定命名空间处理类</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http\://zhangweiblog.cn/schema/xiaoming=com.zw.dubbo.xsd.XiaomingNamespaceHandler</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="7、编写测试文件"><a href="#7、编写测试文件" class="headerlink" title="7、编写测试文件"></a>7、编写测试文件</h4><ul>
+<li>测试类<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zw.dubbo.xsd;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.zw.dubbo.factorybean.Student;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestXsd</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">        ClassPathXmlApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="keyword">new</span> String[]{<span class="string">"classpath:xiaomingxsd.xml"</span>});</span><br><span class="line">        context.start();</span><br><span class="line">        Student student = (Student) context.getBean(<span class="string">"student"</span>);</span><br><span class="line">        student.sayName();</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></li>
+<li>程序返回值<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">22:44:04.656 [main] DEBUG org.springframework.context.support.ClassPathXmlApplicationContext - Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@ea30797</span><br><span class="line">开始解析了</span><br><span class="line">22:44:05.025 [main] DEBUG org.springframework.beans.factory.xml.XmlBeanDefinitionReader - Loaded 1 bean definitions from class path resource [xiaomingxsd.xml]</span><br><span class="line">22:44:05.086 [main] DEBUG org.springframework.beans.factory.support.DefaultListableBeanFactory - Creating shared instance of singleton bean 'student'</span><br><span class="line">my name is 小明.</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+</body></html>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zhangweiblog.cn/2023/02/23/spring_xsd_demo/" data-id="clgzyplrl000h2gx90c6r58c4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/" rel="tag">spring</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/02/25/spring_application_context_ware_demo/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          通过ApplicationContextAware获取上下文ApplicationContext
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/02/22/spring_factory_bean_demo/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">spring FactoryBean 使用demo</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/datax/" style="font-size: 10px;">datax</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB/" style="font-size: 10px;">数据迁移</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/04/28/sublime_install_plugin/">sublime text3插件安装</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/10/datax_hello/">datax helloworld</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/28/dubbo_consumer_bean_create/">dubbo2.x xml配置的消费者bean对象注入容器的过程</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/25/jdk_proxy_demo/">jdk动态代理demo</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/25/spring_initializing_bean_demo/">通过InitializingBean在bean对象初始化完成执行代码</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 zhangwei<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/2023/01/23/aboutme/" class="mobile-nav-link">关于我</a>
+  
+</nav>
+    
+
+<script src="//libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

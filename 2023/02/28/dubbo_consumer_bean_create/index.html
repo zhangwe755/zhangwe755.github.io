@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>dubbo2.x xml配置的消费者bean对象注入容器的过程 | 张威的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文试图去阐述ddubbo消费者的对象注入容器的过程。本文并未完成，后续会继续补充">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dubbo2.x xml配置的消费者bean对象注入容器的过程">
+<meta property="og:url" content="https://zhangweiblog.cn/2023/02/28/dubbo_consumer_bean_create/index.html">
+<meta property="og:site_name" content="张威的博客">
+<meta property="og:description" content="本文试图去阐述ddubbo消费者的对象注入容器的过程。本文并未完成，后续会继续补充">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-28T10:14:09.000Z">
+<meta property="article:modified_time" content="2023-04-28T05:44:51.971Z">
+<meta property="article:author" content="zhangwei">
+<meta property="article:tag" content="dubbo">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/sitemap.xml" title="张威的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">张威的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/2023/01/23/aboutme/">关于我</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/sitemap.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://zhangweiblog.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-dubbo_consumer_bean_create" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/02/28/dubbo_consumer_bean_create/" class="article-date">
+  <time datetime="2023-02-28T10:14:09.000Z" itemprop="datePublished">2023-02-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      dubbo2.x xml配置的消费者bean对象注入容器的过程
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <html><head></head><body><p>本文试图去阐述ddubbo消费者的对象注入容器的过程。本文并未完成，后续会继续补充</p>
+<a id="more"></a>
+
+<h4 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h4><ol>
+<li>spring标签自定义</li>
+<li>FactoryBean使用</li>
+<li>jdk动态代理</li>
+</ol>
+<h4 id="解析流程"><a href="#解析流程" class="headerlink" title="解析流程"></a>解析流程</h4><ul>
+<li>由于使用了spring自定注解，从META-INF/spring.handlers,找到自定义注解命名空间定义类com.alibaba.dubbo.config.spring.schema.DubboNamespaceHandler<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DubboNamespaceHandler</span> <span class="keyword">extends</span> <span class="title">NamespaceHandlerSupport</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> {</span><br><span class="line">        Version.checkDuplicate(DubboNamespaceHandler<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>{</span><br><span class="line">        registerBeanDefinitionParser(<span class="string">"application"</span>, <span class="keyword">new</span> DubboBeanDefinitionParser(ApplicationConfig<span class="class">.<span class="keyword">class</span>, <span class="title">true</span>))</span>;</span><br><span class="line">        registerBeanDefinitionParser(<span class="string">"module"</span>, <span class="keyword">new</span> DubboBeanDefinitionParser(ModuleConfig<span class="class">.<span class="keyword">class</span>, <span class="title">true</span>))</span>;</span><br><span class="line">        registerBeanDefinitionParser(<span class="string">"registry"</span>, <span class="keyword">new</span> DubboBeanDefinitionParser(RegistryConfig<span class="class">.<span class="keyword">class</span>, <span class="title">true</span>))</span>;</span><br><span class="line">        registerBeanDefinitionParser(<span class="string">"monitor"</span>, <span class="keyword">new</span> DubboBeanDefinitionParser(MonitorConfig<span class="class">.<span class="keyword">class</span>, <span class="title">true</span>))</span>;</span><br><span class="line">        registerBeanDefinitionParser(<span class="string">"provider"</span>, <span class="keyword">new</span> DubboBeanDefinitionParser(ProviderConfig<span class="class">.<span class="keyword">class</span>, <span class="title">true</span>))</span>;</span><br><span class="line">        registerBeanDefinitionParser(<span class="string">"consumer"</span>, <span class="keyword">new</span> DubboBeanDefinitionParser(ConsumerConfig<span class="class">.<span class="keyword">class</span>, <span class="title">true</span>))</span>;</span><br><span class="line">        registerBeanDefinitionParser(<span class="string">"protocol"</span>, <span class="keyword">new</span> DubboBeanDefinitionParser(ProtocolConfig<span class="class">.<span class="keyword">class</span>, <span class="title">true</span>))</span>;</span><br><span class="line">        registerBeanDefinitionParser(<span class="string">"service"</span>, <span class="keyword">new</span> DubboBeanDefinitionParser(ServiceBean<span class="class">.<span class="keyword">class</span>, <span class="title">true</span>))</span>;</span><br><span class="line">        registerBeanDefinitionParser(<span class="string">"reference"</span>, <span class="keyword">new</span> DubboBeanDefinitionParser(ReferenceBean<span class="class">.<span class="keyword">class</span>, <span class="title">false</span>))</span>;</span><br><span class="line">        registerBeanDefinitionParser(<span class="string">"annotation"</span>, <span class="keyword">new</span> AnnotationBeanDefinitionParser());</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+所有解析流程都在:com.alibaba.dubbo.config.spring.schema.DubboBeanDefinitionParser#parse方法中进行。</li>
+</ul>
+<h4 id="bean对象的获取"><a href="#bean对象的获取" class="headerlink" title="bean对象的获取"></a>bean对象的获取</h4><ul>
+<li>通过上次分析可知从spring容器中获取的对象为com.alibaba.dubbo.config.spring.ReferenceBean, 从源代码中截取了部分代码<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReferenceBean</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">ReferenceConfig</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">FactoryBean</span>, <span class="title">ApplicationContextAware</span>, <span class="title">InitializingBean</span>, <span class="title">DisposableBean</span> </span>{</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+由于实现了org.springframework.beans.factory.FactoryBean,所以bean对象最终获取对象为com.alibaba.dubbo.config.spring.ReferenceBean#getObject</li>
+</ul>
+<p>进一步深入getObject方法,可以看到：com.alibaba.dubbo.config.ReferenceConfig#init中进行了代理对象生成</p>
+</body></html>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zhangweiblog.cn/2023/02/28/dubbo_consumer_bean_create/" data-id="clgzyplrd00032gx9gqx9hinm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dubbo/" rel="tag">dubbo</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/04/10/datax_hello/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          datax helloworld
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/02/25/jdk_proxy_demo/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">jdk动态代理demo</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/datax/" style="font-size: 10px;">datax</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB/" style="font-size: 10px;">数据迁移</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/04/28/sublime_install_plugin/">sublime text3插件安装</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/10/datax_hello/">datax helloworld</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/28/dubbo_consumer_bean_create/">dubbo2.x xml配置的消费者bean对象注入容器的过程</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/25/jdk_proxy_demo/">jdk动态代理demo</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/25/spring_initializing_bean_demo/">通过InitializingBean在bean对象初始化完成执行代码</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 zhangwei<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/2023/01/23/aboutme/" class="mobile-nav-link">关于我</a>
+  
+</nav>
+    
+
+<script src="//libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
