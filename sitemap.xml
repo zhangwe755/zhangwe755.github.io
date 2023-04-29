@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://zhangweiblog.cn/2023/04/28/sublime_install_plugin/</loc>
+    <loc>https://zhangweiblog.cn/2023/01/23/aboutme/</loc>
     
-    <lastmod>2023-04-28</lastmod>
+    <lastmod>2023-04-29</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://zhangweiblog.cn/2023/01/23/aboutme/</loc>
+    <loc>https://zhangweiblog.cn/2023/04/28/sublime_install_plugin/</loc>
     
     <lastmod>2023-04-28</lastmod>
     
@@ -112,7 +112,7 @@
 
   <url>
     <loc>https://zhangweiblog.cn/</loc>
-    <lastmod>2023-04-28</lastmod>
+    <lastmod>2023-04-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -120,35 +120,35 @@
   
   <url>
     <loc>https://zhangweiblog.cn/tags/dubbo/</loc>
-    <lastmod>2023-04-28</lastmod>
+    <lastmod>2023-04-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhangweiblog.cn/tags/spring/</loc>
-    <lastmod>2023-04-28</lastmod>
+    <lastmod>2023-04-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhangweiblog.cn/tags/datax/</loc>
-    <lastmod>2023-04-28</lastmod>
+    <lastmod>2023-04-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhangweiblog.cn/tags/%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB/</loc>
-    <lastmod>2023-04-28</lastmod>
+    <lastmod>2023-04-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://zhangweiblog.cn/tags/sublime/</loc>
-    <lastmod>2023-04-28</lastmod>
+    <lastmod>2023-04-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
