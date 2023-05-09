@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>企业发票系统构建 | 零点的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="baidu-site-verification" content="codeva-0RGGcgGDNW" />
+  <meta name="description" content="在企业经营活动中发票是不可或缺的财务元素。本文主要描述现有财务体系下发票的基础知识。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="企业发票系统构建">
+<meta property="og:url" content="https://zhangweiblog.cn/2023/05/09/invoice_overview/index.html">
+<meta property="og:site_name" content="零点的博客">
+<meta property="og:description" content="在企业经营活动中发票是不可或缺的财务元素。本文主要描述现有财务体系下发票的基础知识。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://zhangweiblog.cn/2023/05/09/invoice_overview/%E5%8F%91%E7%A5%A8%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84.png">
+<meta property="og:image" content="https://zhangweiblog.cn/2023/05/09/invoice_overview/%E4%BA%AC%E4%B8%9C%E5%8F%91%E7%A5%A8%E5%87%BA%E7%A5%A8%E6%89%BF%E8%AF%BA.png">
+<meta property="article:published_time" content="2023-05-09T12:14:09.000Z">
+<meta property="article:modified_time" content="2023-05-09T02:14:33.698Z">
+<meta property="article:author" content="零点">
+<meta property="article:tag" content="发票">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://zhangweiblog.cn/2023/05/09/invoice_overview/%E5%8F%91%E7%A5%A8%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84.png">
+  
+    <link rel="alternate" href="/sitemap.xml" title="零点的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">零点的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">主页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+          <a class="main-nav-link" href="/2023/01/23/aboutme/">关于我</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/sitemap.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://zhangweiblog.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-invoice_overview" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/05/09/invoice_overview/" class="article-date">
+  <time datetime="2023-05-09T12:14:09.000Z" itemprop="datePublished">2023-05-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      企业发票系统构建
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <html><head></head><body><p>在企业经营活动中发票是不可或缺的财务元素。本文主要描述现有财务体系下发票的基础知识。</p>
+<a id="more"></a>
+
+<p>​</p>
+<h2 id="一、发票是什么"><a href="#一、发票是什么" class="headerlink" title="一、发票是什么"></a>一、发票是什么</h2><p>发票是单位和个人在购销商品、提供或者接受服务以及其他经营活动中，开具、取得的收付款凭证。</p>
+<p>对于普通用户来说，发票是报销凭证。对于企业来说，发票是需缴纳税额的一种依据。同时也是抵扣税额的一种依据。(业余水平，解释可能并不正确，但是应该代表了大多数普通人的看法。)</p>
+<h2 id="二、发票种类"><a href="#二、发票种类" class="headerlink" title="二、发票种类"></a>二、发票种类</h2><p>1、全电发票</p>
+<p>全面数字化的发票。近年来国家进行试点的一种全新发票，解决了传统发票的纸质或者电子，需要去税务局申领，需要开票专用设备，流转交付不便利等问题。</p>
+<p>2、传统发票</p>
+<p>现阶段使用的最为广泛的发票种类。能不能抵扣进项税来区分:增值税专用发票(能抵扣进项税)、增值税普通发票。材质上分: 纸质发票，电子发票。正负划分：负票(红票),正票(蓝票)。特殊行业发票:机动车销售统一发票,二手车销售统一发票,通行费发票。</p>
+<p>现在流行企业发票系统主要是指企业系统对接第三方发票服务平台或者企业直接对接税务系统开具电子发票或者管理非规范发票(比如系统只支持电子发票，但是用户要求纸质发票，企业之间非常见业务发票)。</p>
+<h2 id="三、为什么要构建企业发票系统"><a href="#三、为什么要构建企业发票系统" class="headerlink" title="三、为什么要构建企业发票系统"></a>三、为什么要构建企业发票系统</h2><p>1、开票量大，传统开票流程是由会计开票，并由专业人员邮寄给用户，如果是发票量不大时并没有什么问题，但是如果每天成千上万订单的时候，那得多少人力物力消耗在发票上。如果有一个专门的发票管理系统可以自动开电子票，通过邮件或者其它线上方式交付给用户。从成本上看如果每天有10000个用户订单，需要给用户开票10000张，那么人力成本比如需要2个人，每人200元每天，每次发票邮寄5元，那么总成本是2x200+5x10000=50400元。这是多么庞大的支出（瞎算的，但是理是这个理）。</p>
+<p>2、开票合规管控，发票关系到公司是否合法合规交税问题，这是公司的一个大问题，如果虚开发票是违法的，如果由于不开发票导致未能交税又是偷税漏税，所以对发票进行管控是非常必要的。下面是在网络上找到的一些描述，但是也可以表达出正确开票的重要性。（如果有相关法律了解的需求，请咨询专业机构，下面的内容只是参考，法律我不是专业的）</p>
+<blockquote>
+<p>1、《税收征收管理法》<br>第六十三条　纳税人伪造、变造、隐匿、擅自销毁帐簿、记帐凭证，或者在帐簿上多列支出或者不列、少列收入，或者经税务机关通知申报而拒不申报或者进行虚假的纳税申报，不缴或者少缴应纳税款的，是偷税。对纳税人偷税的，由税务机关追缴其不缴或者少缴的税款、滞纳金，并处不缴或者少缴的税款百分之五十以上五倍以下的罚款;构成犯罪的，依法追究刑事责任。<br>扣缴义务人采取前款所列手段，不缴或者少缴已扣、已收税款，由税务机关追缴其不缴或者少缴的税款、滞纳金，并处不缴或者少缴的税款百分之五十以上五倍以下的罚款;构成犯罪的，依法追究刑事责任。</p>
+</blockquote>
+<blockquote>
+<p>2、虚开发票<br>虚开发票罪包括为他人虚开、为自己虚开、让他人为自己虚开、介绍他人虚开等行为。虚开发票罪的设立是为了保护我国的发票管理制度，不以行为人牟利为目的，可以是为了手续费，也可以通过虚开发票少报收入，偷税、骗税，甚至是用于非法经营、贪污贿赂、侵占等违法行为。因此任何虚开发票的行为必将受到法律的追究，犯罪行为人也必将受到法律的严惩。</p>
+</blockquote>
+<p>从以上2点上来看，业务量达到一定阶段后，构建企业自身的发票系统或者找到替代的开票软件是具有必然性的。</p>
+<h2 id="四、发票系统的2种架构"><a href="#四、发票系统的2种架构" class="headerlink" title="四、发票系统的2种架构"></a>四、发票系统的2种架构</h2><h3 id="1、企业自建发票系统"><a href="#1、企业自建发票系统" class="headerlink" title="1、企业自建发票系统"></a>1、企业自建发票系统</h3><p>根据《企业自建和第三方电子发票服务平台建设标准规范》你需要关注和税务系统的交互，等保测评等因素，企业自身会付出相当的代价，还要定期关注税务局政策变更，系统是否要维护等问题。笔者并没有经历过类似系统构建。如果有相关经验的网友，希望多多交流。</p>
+<h3 id="2、对接第三方发票服务平台"><a href="#2、对接第三方发票服务平台" class="headerlink" title="2、对接第三方发票服务平台"></a>2、对接第三方发票服务平台</h3><p>除了企业直接对接税务系统外，对接第三方电子发票服务平台才是中小企业主流的电子发票构建方案。从税务局开放电子发票系统开始，逐渐形成了一批专业发票服务平台，作为这些公司的主营业务，他们积累一批专业人才和专业系统。如果要找到这些公司的可以网上搜索一下各个省级税务局网站上公布的第三方电子发票服务平台备案信息公示信息。</p>
+<p>但是他们整体的系统架构和交互模式基本类似的，下面是一个大概的架构交互图：<br><img src="%E5%8F%91%E7%A5%A8%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84.png" alt="发票系统架构"></p>
+<h2 id="五、发票在一个企业发票系统中的生命周期"><a href="#五、发票在一个企业发票系统中的生命周期" class="headerlink" title="五、发票在一个企业发票系统中的生命周期"></a>五、发票在一个企业发票系统中的生命周期</h2><h3 id="1、凭什么开票"><a href="#1、凭什么开票" class="headerlink" title="1、凭什么开票"></a>1、凭什么开票</h3><p>由于它的本质是收付款凭证，所以一张发票的起始点大多数时候是订单支付(或者其它支付行为)。所以开建立一个订单或者其它支付行为和发票之间的映射关系是有必要的。大多数时候现在网络交易平台发票都是以订单为依据开票的。在实际工作中，可能使用一个订单开多张发票，一个订单只开一张发票，多个订单开一张发票的情况。多个订单开一张发票一般是出于节约发票的出发点去做的，一般情况这种操作是得不偿失的，会为后续的对账和发票核对带来不必要的麻烦。所以最常用的做法是一个订单只开一张发票，如果金额太多开多张发票。</p>
+<h3 id="2、发票提交到第三方平台-每个平台不同，但是都会有一个企业发票系统提交用户的发票申请信息到第三方平台的过程，然后再由平台异步开票。"><a href="#2、发票提交到第三方平台-每个平台不同，但是都会有一个企业发票系统提交用户的发票申请信息到第三方平台的过程，然后再由平台异步开票。" class="headerlink" title="2、发票提交到第三方平台: 每个平台不同，但是都会有一个企业发票系统提交用户的发票申请信息到第三方平台的过程，然后再由平台异步开票。"></a>2、发票提交到第三方平台: 每个平台不同，但是都会有一个企业发票系统提交用户的发票申请信息到第三方平台的过程，然后再由平台异步开票。</h3><h3 id="3、检查发票是否开票成功-平台异步开票成功后一般需要企业发票系统主动去查询，获取发票下载链接，在企业发票系统中如果到这一步一般可以认为发票已经开票成功了。"><a href="#3、检查发票是否开票成功-平台异步开票成功后一般需要企业发票系统主动去查询，获取发票下载链接，在企业发票系统中如果到这一步一般可以认为发票已经开票成功了。" class="headerlink" title="3、检查发票是否开票成功: 平台异步开票成功后一般需要企业发票系统主动去查询，获取发票下载链接，在企业发票系统中如果到这一步一般可以认为发票已经开票成功了。"></a>3、检查发票是否开票成功: 平台异步开票成功后一般需要企业发票系统主动去查询，获取发票下载链接，在企业发票系统中如果到这一步一般可以认为发票已经开票成功了。</h3><h3 id="4、发票开错了怎么办-发票的运作原理并不是作废原有的发票，而是开具一张新的金额相同的负向发票。再很多时候用户换票就是开一张负向发票，然后再重新填信息开一张新的发票。有时候也会根据发票颜色来叫，正向发票叫蓝票，负向发票叫红票。"><a href="#4、发票开错了怎么办-发票的运作原理并不是作废原有的发票，而是开具一张新的金额相同的负向发票。再很多时候用户换票就是开一张负向发票，然后再重新填信息开一张新的发票。有时候也会根据发票颜色来叫，正向发票叫蓝票，负向发票叫红票。" class="headerlink" title="4、发票开错了怎么办: 发票的运作原理并不是作废原有的发票，而是开具一张新的金额相同的负向发票。再很多时候用户换票就是开一张负向发票，然后再重新填信息开一张新的发票。有时候也会根据发票颜色来叫，正向发票叫蓝票，负向发票叫红票。"></a>4、发票开错了怎么办: 发票的运作原理并不是作废原有的发票，而是开具一张新的金额相同的负向发票。再很多时候用户换票就是开一张负向发票，然后再重新填信息开一张新的发票。有时候也会根据发票颜色来叫，正向发票叫蓝票，负向发票叫红票。</h3><h2 id="六、第三方发票服务提供商模式需要注意的问题"><a href="#六、第三方发票服务提供商模式需要注意的问题" class="headerlink" title="六、第三方发票服务提供商模式需要注意的问题"></a>六、第三方发票服务提供商模式需要注意的问题</h2><h3 id="1、对于出票周期的承诺"><a href="#1、对于出票周期的承诺" class="headerlink" title="1、对于出票周期的承诺"></a>1、对于出票周期的承诺</h3><p>对于用户来说越快得到发票越好，但是开票是需要一个过程的，如果中途出现异常情况还可能导致发票一定时间内并不能开出来，所以对于用户出票周期的承诺应该有一个时间段。比如说京东承诺48小时内开具发票。<br><img src="%E4%BA%AC%E4%B8%9C%E5%8F%91%E7%A5%A8%E5%87%BA%E7%A5%A8%E6%89%BF%E8%AF%BA.png" alt="京东发票出票承诺"></p>
+<h3 id="2、建立发票开票失败重试机制"><a href="#2、建立发票开票失败重试机制" class="headerlink" title="2、建立发票开票失败重试机制"></a>2、建立发票开票失败重试机制</h3><p>对于和第三方交互的这种系统，由于存在网络交互或者其它原因，偶然失败是不可避免的，所以一定要建立具有幂等性的重试机制。</p>
+<h3 id="3、开票失败的常见原因"><a href="#3、开票失败的常见原因" class="headerlink" title="3、开票失败的常见原因"></a>3、开票失败的常见原因</h3><h4 id="3-1、发票专用设备异常-发票开票设备在不同的平台可能会有不同，但是可能会有异常情况导致短时间不能开票的情况"><a href="#3-1、发票专用设备异常-发票开票设备在不同的平台可能会有不同，但是可能会有异常情况导致短时间不能开票的情况" class="headerlink" title="3.1、发票专用设备异常: 发票开票设备在不同的平台可能会有不同，但是可能会有异常情况导致短时间不能开票的情况"></a>3.1、发票专用设备异常: 发票开票设备在不同的平台可能会有不同，但是可能会有异常情况导致短时间不能开票的情况</h4><h4 id="3-2、发票数量不够-从税务申领的发票数量是有限的，如果使用完了就需要再去申领。"><a href="#3-2、发票数量不够-从税务申领的发票数量是有限的，如果使用完了就需要再去申领。" class="headerlink" title="3.2、发票数量不够: 从税务申领的发票数量是有限的，如果使用完了就需要再去申领。"></a>3.2、发票数量不够: 从税务申领的发票数量是有限的，如果使用完了就需要再去申领。</h4><h4 id="3-3、发票限额超过了-单张发票最大开票金额每个公司是不同的，对于一些金额特别大的订单，可能会有超过限额的情况，这种情况要不每次特殊处理，要不就分为多张发票。"><a href="#3-3、发票限额超过了-单张发票最大开票金额每个公司是不同的，对于一些金额特别大的订单，可能会有超过限额的情况，这种情况要不每次特殊处理，要不就分为多张发票。" class="headerlink" title="3.3、发票限额超过了: 单张发票最大开票金额每个公司是不同的，对于一些金额特别大的订单，可能会有超过限额的情况，这种情况要不每次特殊处理，要不就分为多张发票。"></a>3.3、发票限额超过了: 单张发票最大开票金额每个公司是不同的，对于一些金额特别大的订单，可能会有超过限额的情况，这种情况要不每次特殊处理，要不就分为多张发票。</h4><h4 id="3-4、第三方平台本身的程序异常：这个就看天意了，写过代码的人都知道，0bug，不存在的，是程序就有可能有漏洞，有bug，这种只能联系第三方平台处理了。以我的个人经验来说这种情况还是比较多的，尤其是多年沉淀的系统中，可能有些问题可以手动解决就不会有人去处理，还有可能第三方平台维护，由于调整可能会导致部分时间段内系统特别不稳定的情况。"><a href="#3-4、第三方平台本身的程序异常：这个就看天意了，写过代码的人都知道，0bug，不存在的，是程序就有可能有漏洞，有bug，这种只能联系第三方平台处理了。以我的个人经验来说这种情况还是比较多的，尤其是多年沉淀的系统中，可能有些问题可以手动解决就不会有人去处理，还有可能第三方平台维护，由于调整可能会导致部分时间段内系统特别不稳定的情况。" class="headerlink" title="3.4、第三方平台本身的程序异常：这个就看天意了，写过代码的人都知道，0bug，不存在的，是程序就有可能有漏洞，有bug，这种只能联系第三方平台处理了。以我的个人经验来说这种情况还是比较多的，尤其是多年沉淀的系统中，可能有些问题可以手动解决就不会有人去处理，还有可能第三方平台维护，由于调整可能会导致部分时间段内系统特别不稳定的情况。"></a>3.4、第三方平台本身的程序异常：这个就看天意了，写过代码的人都知道，0bug，不存在的，是程序就有可能有漏洞，有bug，这种只能联系第三方平台处理了。以我的个人经验来说这种情况还是比较多的，尤其是多年沉淀的系统中，可能有些问题可以手动解决就不会有人去处理，还有可能第三方平台维护，由于调整可能会导致部分时间段内系统特别不稳定的情况。</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面这些原因也导致了处理这些问题主要由发票专员和开发合作完成，所以最节省人力成本的办法是把报文找个地方展示出来，并为发票专员普及电子发票系统原理(可能他并不理解，但是可以简单了解并解决大部分问题的)，当出现问题时候先由发票专员直接联系第三方平台解决，如果出现不能解决的问题再由开发介入。</p>
+<h2 id="七、发票系统未来的发展趋势"><a href="#七、发票系统未来的发展趋势" class="headerlink" title="七、发票系统未来的发展趋势"></a>七、发票系统未来的发展趋势</h2><p>到写这篇文章开始，国内已经有部分省市开始试行全电发票，传统电子发票和纸质发票会逐渐退出历史的舞台。不过这个毕竟还要一个替代过程。</p>
+<p>大家有什么看法欢迎探讨。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考:"></a>参考:</h2><p><a href="https://inv-veri.chinatax.gov.cn/fpcs/fpzl.html" target="_blank" rel="noopener">发票种类</a> 发票版式和发票分类</p>
+<p><a href="http://ak.ejinsui.com.cn/product.html?ids=1&amp;aid=5" target="_blank" rel="noopener">航天金税丨信息化解决方案–电子发票管理系统</a> 航天金税传统发票架构</p>
+<p><a href="https://etax.xinjiang.chinatax.gov.cn/gzfw/tongzhigonggao/tzgg/201908/t20190805_31582.html" target="_blank" rel="noopener">国家税务总局关于发布《企业自建和第三方电子发票服务平台建设标准规范》的通知-政策法规通知公告-新疆电子税务局</a></p>
+<p><a href="https://www.kancloud.cn/xj12366/wt-0605/1775929" target="_blank" rel="noopener">电子发票服务平台初始备案 · 新疆电子税务局用户手册 · 看云 发票服务平台备案</a></p>
+<p><a href="http://shanghai.chinatax.gov.cn/xxgk/tzgg/201905/t445581.html" target="_blank" rel="noopener">关于上海市第一批已备案电子发票第三方平台的公示 关于上海市第一批已备案电子发票第三方平台的公示</a></p>
+<p>该文章为我原来在csdn上写过的，现在专门转到这，csdn地址:<a href="https://blog.csdn.net/weixin_44318306/article/details/125902921" target="_blank" rel="noopener">发票系统架构</a></p>
+<p>​</p>
+</body></html>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://zhangweiblog.cn/2023/05/09/invoice_overview/" data-id="clhfmohxq0000qxx9fvtkebx9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%91%E7%A5%A8/" rel="tag">发票</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2023/04/28/sublime_install_plugin/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">sublime text3插件安装</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/datax/" style="font-size: 10px;">datax</a> <a href="/tags/dubbo/" style="font-size: 15px;">dubbo</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/sublime/" style="font-size: 10px;">sublime</a> <a href="/tags/%E5%8F%91%E7%A5%A8/" style="font-size: 10px;">发票</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB/" style="font-size: 10px;">数据迁移</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">二月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">一月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/05/09/invoice_overview/">企业发票系统构建</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/28/sublime_install_plugin/">sublime text3插件安装</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/10/datax_hello/">datax helloworld</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/28/dubbo_consumer_bean_create/">dubbo2.x xml配置的消费者bean对象注入容器的过程</a>
+          </li>
+        
+          <li>
+            <a href="/2023/02/25/jdk_proxy_demo/">jdk动态代理demo</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 零点<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">主页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="/2023/01/23/aboutme/" class="mobile-nav-link">关于我</a>
+  
+</nav>
+    
+
+<script src="//libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
