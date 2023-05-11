@@ -1,3 +1,4 @@
+https://zhangweiblog.cn/2023/05/11/management_principle/
 https://zhangweiblog.cn/2023/05/09/invoice_overview/
 https://zhangweiblog.cn/2023/01/23/aboutme/
 https://zhangweiblog.cn/2023/04/28/sublime_install_plugin/
@@ -12,9 +13,10 @@ https://zhangweiblog.cn/2023/02/20/dubbo_hello_consumer_analysis/
 https://zhangweiblog.cn/2023/02/18/dubbo_hello/
 https://zhangweiblog.cn/2023/04/10/datax_hello/
 https://zhangweiblog.cn/
+https://zhangweiblog.cn/tags/dubbo/
 https://zhangweiblog.cn/tags/datax/
 https://zhangweiblog.cn/tags/%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB/
-https://zhangweiblog.cn/tags/dubbo/
-https://zhangweiblog.cn/tags/spring/
 https://zhangweiblog.cn/tags/%E5%8F%91%E7%A5%A8/
+https://zhangweiblog.cn/tags/%E7%AE%A1%E7%90%86%E6%96%B9%E6%B3%95%E8%AE%BA/
+https://zhangweiblog.cn/tags/spring/
 https://zhangweiblog.cn/tags/sublime/
