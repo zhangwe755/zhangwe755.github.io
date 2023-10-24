@@ -1,3 +1,4 @@
+https://zhangweiblog.cn/2023/10/23/java_denominator_zero/
 https://zhangweiblog.cn/2023/05/11/management_principle/
 https://zhangweiblog.cn/2023/05/09/invoice_overview/
 https://zhangweiblog.cn/2023/01/23/aboutme/
@@ -20,3 +21,4 @@ https://zhangweiblog.cn/tags/%E5%8F%91%E7%A5%A8/
 https://zhangweiblog.cn/tags/%E7%AE%A1%E7%90%86%E6%96%B9%E6%B3%95%E8%AE%BA/
 https://zhangweiblog.cn/tags/spring/
 https://zhangweiblog.cn/tags/sublime/
+https://zhangweiblog.cn/tags/java%E5%A5%87%E6%80%AA%E8%AF%AD%E6%B3%95/
